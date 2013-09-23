@@ -1,0 +1,24 @@
+#! /bin/bash
+
+# You can find all this stuff by running:
+# strings /usr/bp/bin/tasker
+# The information you need is towards the end of the file
+
+EXPIRES='1358294400' # Date is in unixtime.  0 for Never.
+DAEMON_HOST_ID='999999999999'
+PRODUCT='BP'
+ASSET='9U-555-5555'
+FEATURES='IAB=50,CSS=10,RC=9999G,RD=7,D2D=9999G,DPL,J=0,MUX=8'
+
+# Do not change
+SALT='*!b1$uZMDmWCz1CEMy82iBC3HgFLpE&7'
+
+CHECKSUM=${CHECKSUM}$(echo -n ${EXPIRES})
+CHECKSUM=${CHECKSUM}$(echo -n ${DAEMON_HOST_ID})
+CHECKSUM=${CHECKSUM}$(echo -n ${PRODUCT})
+CHECKSUM=${CHECKSUM}$(echo -n ${ASSET})
+CHECKSUM=${CHECKSUM}$(echo -n ${FEATURES})
+CHECKSUM=${CHECKSUM}$(echo -n ${DAEMON_HOST_ID})
+CHECKSUM=${CHECKSUM}$(echo -n ${SALT})
+
+echo -n $CHECKSUM | sha1sum | sed 's/\s-$//g'
